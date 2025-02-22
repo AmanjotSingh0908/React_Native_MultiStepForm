@@ -1,74 +1,89 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { useState } from "react";
+import { Image, StyleSheet, Platform, View, Text, TextInput } from "react-native";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
 export default function HomeScreen() {
+  const [step1Data, setStep1DataFormat] = useState({name: '', address: ''});
+  const [step2Data, setStep2DataFormat] = useState({email: '', username: ''});
+  const [step3Data, setStep3DataFormat] = useState({password: '', retypePassword: ''});
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.Container}>
+      <ProgressSteps>
+        <ProgressStep label="Step 1">
+            <View style={styles.stepContent}>
+                <Text style = {styles.labelText}>Name</Text>
+                <TextInput style={styles.input} 
+                placeholder="Name"
+                value={step1Data.name}
+                onChangeText={text =>  setStep1DataFormat({...step1Data, name : text})}
+                />
+                <Text style = {styles.labelText}>Address</Text>
+                <TextInput style={styles.input} 
+                placeholder="Address"
+                value={step1Data.address}
+                onChangeText={text =>  setStep1DataFormat({...step1Data, address : text})}
+                />
+            </View>
+        </ProgressStep>
+
+        <ProgressStep label="Step 2">
+            <View style={styles.stepContent}>
+                <Text style = {styles.labelText}>Email</Text>
+                <TextInput style={styles.input} 
+                placeholder="Email"
+                value={step2Data.email}
+                onChangeText={text =>  setStep2DataFormat({...step2Data, email : text})}
+                />
+                <Text style = {styles.labelText}>Username</Text>
+                <TextInput style={styles.input} 
+                placeholder="Username"
+                value={step2Data.username}
+                onChangeText={text =>  setStep2DataFormat({...step2Data, username : text})}
+                />
+            </View>
+        </ProgressStep>
+
+        <ProgressStep label="Step 3">
+            <View style={styles.stepContent}>
+                <Text style = {styles.labelText}>Password</Text>
+                <TextInput style={styles.input} 
+                placeholder="Password"
+                value={step3Data.password}
+                onChangeText={text =>  setStep3DataFormat({...step3Data, password : text})}
+                />
+                <Text style = {styles.labelText}>Address</Text>
+                <TextInput style={styles.input} 
+                placeholder="Re Type Password"
+                value={step3Data.password}
+                onChangeText={text =>  setStep3DataFormat({...step3Data, password : text})}
+                /><TextInput style={styles.input} />
+            </View>
+        </ProgressStep>
+    </ProgressSteps>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  Container: {
+    flex: 1,
+    padding: 20,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  stepContent :{
+
+  }, 
+  labelText: {
+    fontSize: 16
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+  input: {
+    width: '100%',
+    height:50,
+    backgroundColor: '#e8f5e9',
+    borderRadius:10,
+    paddingHorizontal: 15,
+    marginBottom : 10,
+    marginTop: 10,
+  }
 });
