@@ -58,7 +58,7 @@ export default function HomeScreen() {
                 placeholder="Re Type Password"
                 value={step3Data.password}
                 onChangeText={text =>  setStep3DataFormat({...step3Data, password : text})}
-                /><TextInput style={styles.input} />
+                />
             </View>
         </ProgressStep>
     </ProgressSteps>
